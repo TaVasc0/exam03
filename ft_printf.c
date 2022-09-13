@@ -1,36 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   printf_test_1.c                                    :+:      :+:    :+:   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aenrique <aenrique@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/01 08:25:15 by aenrique          #+#    #+#             */
-/*   Updated: 2022/09/01 08:25:21 by aenrique         ###   ########.fr       */
+/*   Created: 2022/09/11 17:12:22 by aenrique          #+#    #+#             */
+/*   Updated: 2022/09/12 22:17:59 by aenrique         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	<unistd.h>
 #include	<stdarg.h>
 
-int	ft_putchar(int c)
+int	ft_putchar(char	c)
 {
 	write(1, &c, 1);
-	return(0);
+	return (1);
 }
 
 int	ft_putstr(char *str)
 {
-	int i;
-	i = 0;
+	int	i;
+
 	if (!str)
 	{
-		ft_putstr("(null)");
+		write(1, "(null)", 6);
+		return (6);
 	}
-	while (str[i] != '\0')
+	else
 	{
-		ft_putchar(str[i]);
-		i++;
+		i = 0;
+		while (str[i] != '\0')
+		{
+			write(1, &str[i], 1);
+			i++;
+		}
 	}
 	return (i);
 }
@@ -44,39 +49,37 @@ int	ft_putnbr(int nb)
 	n = nb;
 	if (n < 0)
 	{
-		len += ft_putchar('-');
+		len += write(1, "-", 1);
 		n = -n;
 	}
-	if(n > 9)
+	if (n > 9)
 	{
 		len += ft_putnbr(n / 10);
 		len += ft_putnbr(n % 10);
 	}
 	else
-		len += ft_putchar	(n + 48);
+		len += ft_putchar(n + 48);
 	return (len);
 }
 
 int	ft_puthex(unsigned int nbr, char *base)
 {
-	unsigned int	size;
-	int				count;
+	int		count;
 
 	count = 0;
-	size = 16;
-	if (nbr >= size)
+	if (nbr >= 16)
 	{
-		count += ft_puthex(nbr / size, base);
-		count += ft_putchar(base[nbr % size]);
+		count += ft_puthex(nbr / 16, base);
+		count += ft_putchar(base[nbr % 16]);
 	}
 	else
-		count += ft_putchar(base[nbr % size]);
+		count += ft_putchar(base[nbr % 16]);
 	return (count);
 }
 
 int	ft_eval(va_list arg, const char *input, int i)
 {
-	int	len;
+	int 	len;
 
 	len = 0;
 	if (input[i] == 's')
@@ -90,9 +93,9 @@ int	ft_eval(va_list arg, const char *input, int i)
 
 int	ft_printf(const char *input, ...)
 {
-	int		i;
-	int 	len;
-	va_list	arg;
+	int			i;
+	int			len;
+	va_list		arg;
 
 	i = 0;
 	len = 0;
@@ -117,9 +120,9 @@ int	ft_printf(const char *input, ...)
 
 int	main(void)
 {
-	ft_printf("Hola  %d  %s  %x   R\n", -1234, "POPEYE", 15);
-	ft_printf("Hola  %d  %s  %x   R\n", 1234, "% ˆ &%#", 16);
-	ft_printf("Hola  %d  %s  %x   R\n", 1234, "       ", 9);
-	ft_printf("Hola  %d  %s  %x   R\n", 1234, "mAm 232", 10);
+	  ft_printf("Hola\n");
+	  ft_printf("Hola  %d \n", 1234);
+	  ft_printf("Hola  %x \n", 15);
+	  ft_printf("Hola  %s \n", "POPEYE");
 	return (0);
 }

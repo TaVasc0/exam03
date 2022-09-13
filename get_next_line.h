@@ -1,33 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_test_1.c                             :+:      :+:    :+:   */
+/*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aenrique <aenrique@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/01 08:35:11 by aenrique          #+#    #+#             */
-/*   Updated: 2022/09/01 08:35:14 by aenrique         ###   ########.fr       */
+/*   Created: 2022/09/11 13:49:18 by aenrique          #+#    #+#             */
+/*   Updated: 2022/09/11 14:11:59 by aenrique         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"stdarg.h"
+#ifndef	GET_NEXT_LINE_H
+# define GET_NEXT_LINE_H
 
-char	*get_next_line(int fd)
-{
-	int		flrd;
-	char	c;
-	char	*str;
-	char	*str2;
+# include	<unistd.h>
+# include	<stdlib.h>
+# include	<fcntl.h>
+# include	<stdio.h>
 
-	str = malloc(1000000);
-	str2 = str;
-	if (flrd == read(fd, &c, 1) == 0)
-		return(NULL);
-	*str++ = c;
-	while (flrd == read(fd, &c, 1) > 0 && c != '\n')
-		*str++ = c;
-	if (c == '\n')
-		*str++ = '\n';
-	str++ = '\0';
-	return (str2);
-}
+char	*get_next_line(int fd);
+
+#endif
