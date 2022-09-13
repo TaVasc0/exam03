@@ -6,7 +6,7 @@
 /*   By: aenrique <aenrique@student.42barcel>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 10:44:37 by aenrique          #+#    #+#             */
-/*   Updated: 2022/09/11 14:11:16 by aenrique         ###   ########.fr       */
+/*   Updated: 2022/09/13 07:09:36 by aenrique         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,22 +17,22 @@
 
 char	*get_next_line(int fd)
 {
-	int		flrd;
+	int		f;
 	char	c;
-	char	*str;
-	char	*str2;
+	char	*s1;
+	char	*s2;
 
-	str = malloc(1000000);
-	str2 = str;
-	if ((flrd = read(fd, &c, 1)) == 0)
+	s1 = malloc(1000000);
+	s2 = str;
+	if ((f = read(fd, &c, 1)) == 0)
 		return (NULL);
-	*str++ = c;
-	while ((flrd = read(fd, &c, 1)) > 0 && c != '\n')
-		*str++ = c;
+	*s1++ = c;
+	while ((f = read(fd, &c, 1)) > 0 && c != '\n')
+		*s1++ = c;
 	if (c == '\n')
-		*str++ = '\n';
-	*str = '\0';
-	return (str2);
+		*s1++ = '\n';
+	*s1 = '\0';
+	return (s2);
 }
 
 int	main(void)
